@@ -19,7 +19,7 @@ namespace Principal
         {
             InitializeComponent();
         }
-        
+
         private void backUpBtn_Click(object sender, EventArgs e)
         {
             // Obtenemos los datos de los input
@@ -32,7 +32,25 @@ namespace Principal
 
             TerminalConnection terminal = new TerminalConnection();
             terminal.ExecuteCommand(userName, psw, db);
-            MessageBox.Show("Respaldo Completado con exito", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Respaldo Completado con exito", "Success", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string userName = userTxt.Text;
+            string psw = pswTxt.Text;
+            string db = dbTxt.Text;
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = @"Seleccione el respaldo sql | *.sql;";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string path = openFileDialog.FileName;
+
+                var restore = new TerminalConnection();
+                restore.RestoreDb(userName, psw, db, path);
+            }
         }
     }
 }
