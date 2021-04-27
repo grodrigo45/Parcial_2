@@ -32,6 +32,7 @@ namespace Principal
 
             TerminalConnection terminal = new TerminalConnection();
             terminal.ExecuteCommand(userName, psw, db);
+            MessageBox.Show("Respaldo Completado con exito", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
