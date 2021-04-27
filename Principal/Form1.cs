@@ -19,27 +19,19 @@ namespace Principal
         {
             InitializeComponent();
         }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
+        
         private void backUpBtn_Click(object sender, EventArgs e)
         {
             // Obtenemos los datos de los input
-            // var userName = userTxt.Text;
-            // var psw = pswTxt.Text;
-            // var db = dbTxt.Text;
-            //
-            // // Este es el string en donde se guarda el backUp
-            // string file = @"c:\backUp.sql";
-            //
-            // // Creamos la conexion a la base de datos
-            // DataManager.CLS.Conexion dataBase = new Conexion(userName, psw, db);
+            string userName = userTxt.Text;
+            string psw = pswTxt.Text;
+            string db = dbTxt.Text;
+
+            // Creamos la conexion a la base de datos
+            DataManager.CLS.Conexion dataBase = new Conexion(userName, psw, db);
 
             TerminalConnection terminal = new TerminalConnection();
-            terminal.ExecuteCommand();
+            terminal.ExecuteCommand(userName, psw, db);
         }
     }
 }

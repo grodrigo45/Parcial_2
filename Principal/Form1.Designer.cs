@@ -59,7 +59,6 @@
             this.dbTxt.Name = "dbTxt";
             this.dbTxt.Size = new System.Drawing.Size(347, 20);
             this.dbTxt.TabIndex = 2;
-            this.dbTxt.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // label1
             // 
@@ -117,6 +116,7 @@
             this.Controls.Add(this.dbTxt);
             this.Controls.Add(this.pswTxt);
             this.Controls.Add(this.userTxt);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
