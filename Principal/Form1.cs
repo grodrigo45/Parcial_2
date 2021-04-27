@@ -20,37 +20,67 @@ namespace Principal
             InitializeComponent();
         }
 
+        //Getter Setter
+        public TextBox UserTxt
+        {
+            get => userTxt;
+            set => userTxt = value;
+        }
+
+        public TextBox PswTxt
+        {
+            get => pswTxt;
+            set => pswTxt = value;
+        }
+
+        public TextBox DbTxt
+        {
+            get => dbTxt;
+            set => dbTxt = value;
+        }
+
+        //Metodos
         private void backUpBtn_Click(object sender, EventArgs e)
         {
-            // Obtenemos los datos de los input
-            string userName = userTxt.Text;
-            string psw = pswTxt.Text;
-            string db = dbTxt.Text;
-
             // Creamos la conexion a la base de datos
-            DataManager.CLS.Conexion dataBase = new Conexion(userName, psw, db);
+            Conexion dataBase = new Conexion(UserTxt.Text, PswTxt.Text, DbTxt.Text);
 
-            TerminalConnection terminal = new TerminalConnection();
-            terminal.ExecuteCommand(userName, psw, db);
-            MessageBox.Show("Respaldo Completado con exito", "Success", MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            {
+                string path = folderBrowser.SelectedPath;
+                TerminalConnection terminal = new TerminalConnection();
+                terminal.ExecuteCommand(UserTxt.Text, PswTxt.Text, DbTxt.Text, path);
+                MessageBox.Show(@"La base de datos ha sido respaldada exitosamente");
+                //Crear XML cada vez que hagamos un backup
+                XmlCrud.CreateXml($"mysqldump -u{UserTxt.Text} -p{PswTxt.Text} {dbTxt.Text}> {path}\\{dbTxt.Text}{DateTime.Now:yyyy-MM-dd_HH-mm}.sql");
+
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string userName = userTxt.Text;
-            string psw = pswTxt.Text;
-            string db = dbTxt.Text;
-
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = @"Seleccione el respaldo sql | *.sql;";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string path = openFileDialog.FileName;
-
                 var restore = new TerminalConnection();
-                restore.RestoreDb(userName, psw, db, path);
+                restore.RestoreDb(UserTxt.Text, PswTxt.Text, DbTxt.Text, path);
+                MessageBox.Show(@"La base de datos ha sido restaurada exitosamente");
             }
         }
+
+        private void exitBtn_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
+        }
     }
+    
 }

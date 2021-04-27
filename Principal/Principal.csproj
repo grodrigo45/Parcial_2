@@ -51,6 +51,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="CLS\TerminalConnection.cs" />
+        <Compile Include="CLS\XmlCrud.cs" />
         <Compile Include="Form1.cs">
             <SubType>Form</SubType>
         </Compile>
